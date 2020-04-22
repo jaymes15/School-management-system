@@ -27,7 +27,13 @@ namespace WEBWORK
         {
             services.AddControllers();
             services.AddDbConnection(Configuration);
-            
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "School Manager API", Description = "School Management System Documentation" });
+            });
+
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +47,11 @@ namespace WEBWORK
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs");
+            });
 
             app.UseEndpoints(endpoints =>
             {
