@@ -29,6 +29,26 @@ namespace WEBWORK.Controllers
             return Ok(_context.Students.ToList());
         }
 
+        [HttpGet("{id}",Name = "GetStudentById")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public IActionResult GetStudentById([FromRoute] int id)
+        {
+            var student = _context.Students.Find(id);
+            if(student == null)
+            {
+                return NotFound(ModelState);
+            }
+            else
+            {
+                return Ok(student);
+            }
+
+        }
+
+
 
     }
 }
