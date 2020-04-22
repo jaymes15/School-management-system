@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WEBWORK.DATA.DataContext;
+using WEBWORK.DATA.Models.DataTarget;
 
 namespace WEBWORK.Controllers
 {
@@ -46,6 +47,27 @@ namespace WEBWORK.Controllers
                 return Ok(student);
             }
 
+        }
+
+        [HttpPost( Name = "CreateStudent")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public IActionResult CreateStudent([FromBody] StudentData studentData)
+        {
+            var student = studentData.student;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                _context.Students.Add(student);
+                _context.SaveChanges();
+                return Ok(student);
+            }
+            
         }
 
 
