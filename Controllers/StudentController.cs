@@ -39,7 +39,7 @@ namespace WEBWORK.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
 
-        public IActionResult GetStudentById([FromRoute] int id)
+        public IActionResult GetStudentById([FromRoute] long id)
         {
             var student = _context.Students.Find(id);
             if(student == null)
@@ -83,7 +83,7 @@ namespace WEBWORK.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
      
-        public IActionResult UpdateStudent([FromRoute] int id,[FromBody] StudentData studentData)
+        public IActionResult UpdateStudent([FromRoute] long id,[FromBody] StudentData studentData)
         {
             if (!ModelState.IsValid)
             {
@@ -111,7 +111,29 @@ namespace WEBWORK.Controllers
         }
         #endregion
 
+        #region Delete Student
+        [HttpDelete("{id}", Name = "DeleteStudent")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
 
+        public IActionResult DeleteStudent([FromRoute] long id)
+        {
+            var student = _context.Students.Find(id);
+            if (student == null)
+            {
+                return NotFound(ModelState);
+            }
+            else
+            {
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+                return Ok();
+             }
+
+            }
+
+        }
+        #endregion
 
     }
-}
