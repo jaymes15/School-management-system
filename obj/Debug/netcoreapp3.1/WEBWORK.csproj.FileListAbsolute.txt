@@ -128,5 +128,3 @@ C:\Users\TOMI\source\repos\WEBWORK\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 C:\Users\TOMI\source\repos\WEBWORK\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\TOMI\source\repos\WEBWORK\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\TOMI\source\repos\WEBWORK\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\TOMI\source\repos\WEBWORK\obj\Debug\netcoreapp3.1\WEBWORK.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\TOMI\source\repos\WEBWORK\obj\Debug\netcoreapp3.1\WEBWORK.MvcApplicationPartsAssemblyInfo.cache
