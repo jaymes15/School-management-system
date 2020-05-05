@@ -51,7 +51,7 @@ namespace WEBWORK.Controllers
             }
             else
             {
-                return Ok(student);
+                return Ok(repo.GetOneStudent(student));
             }
 
         }
@@ -100,12 +100,8 @@ namespace WEBWORK.Controllers
                 }
                 else
                 {
-                    student.FirstName = studentData.FirstName;
-                    student.LastName = studentData.LastName;
-                    student.Email = studentData.Email;
-                    student.Phone = studentData.Phone;
-                    _context.SaveChanges();
-                    return Ok(student);
+                
+                    return Ok(repo.UpdateStudent(student,studentData));
                 }
                 
             }
@@ -128,8 +124,7 @@ namespace WEBWORK.Controllers
             }
             else
             {
-                _context.Students.Remove(student);
-                _context.SaveChanges();
+                repo.DeleteStudent(student);
                 return Ok();
              }
 

@@ -11,9 +11,13 @@ namespace WEBWORK.Interfaces
     {
         IEnumerable<Student> GetAllStudent();
 
-        Student GetOneStudent(long Id);
+        Student GetOneStudent(Student student);
 
         void CreateNewStudent(StudentData studentData);
+
+        Student UpdateStudent(Student student, StudentData studentdata);
+
+        void DeleteStudent(Student student);
 
        
     }
