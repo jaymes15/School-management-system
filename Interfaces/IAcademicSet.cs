@@ -12,5 +12,11 @@ namespace WEBWORK.Interfaces
         IEnumerable<AcademicSet> CreateNewAcademicSet(AcademicSetData academicData);
 
         IEnumerable<AcademicSet> GetAllAcademicSet();
+
+        AcademicSet GetOneAcademicSet(AcademicSet academicSet);
+
+        AcademicSet UpdateAcademicSet(AcademicSet academicSet, AcademicSetData academicSetData);
+
+        void DeleteAcademicSet(AcademicSet academicSet);
     }
 }
