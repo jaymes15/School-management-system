@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEBWORK.DATA.DataContext;
 using WEBWORK.DATA.Models.DataTarget;
 using WEBWORK.Interfaces;
 
@@ -13,9 +14,11 @@ namespace WEBWORK.Controllers
     public class CourseController : Controller
     {
         public ICourse repo { get; }
-        public CourseController( ICourse _repo)
+
+        private ApplicationDbContext _context;
+        public CourseController( ICourse _repo, ApplicationDbContext context)
         {
-           
+            _context = context;
             repo = _repo;
         }
 
@@ -52,5 +55,80 @@ namespace WEBWORK.Controllers
             return Ok(repo.GetAllCourses());
         }
         #endregion
+
+        #region Get Course By Id
+        [HttpGet("{id}", Name = "GetCourseById")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public IActionResult GetCourseById([FromRoute] long id)
+        {
+            var course = _context.Courses.Find(id);
+            if (course == null)
+            {
+                return NotFound(ModelState);
+            }
+            else
+            {
+                return Ok(repo.GetOneCourse(course));
+            }
+
+        }
+        #endregion
+
+        #region Update Course
+        [HttpPut("{id}", Name = "UpdateCourse")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public IActionResult UpdateCourse([FromRoute] long id, [FromBody] CourseData courseData)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                var course = _context.Courses.Find(id);
+                if (course == null)
+                {
+                    return NotFound(ModelState);
+                }
+                else
+                {
+
+                    return Ok(repo.UpdateCourse(course, courseData));
+                }
+
+            }
+
+        }
+        #endregion
+
+        #region Delete Course
+        [HttpDelete("{id}", Name = "DeleteCourse")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+
+        public IActionResult DeleteCourse([FromRoute] long id)
+        {
+            var course = _context.Courses.Find(id);
+            if (course == null)
+            {
+                return NotFound(ModelState);
+            }
+            else
+            {
+                repo.DeleteStudent(course);
+                return Ok();
+            }
+
+        }
+        #endregion
     }
+
 }
+

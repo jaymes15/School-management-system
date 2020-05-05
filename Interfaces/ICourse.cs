@@ -13,5 +13,11 @@ namespace WEBWORK.Interfaces
         IEnumerable<Course> CreateNewCourses(CourseData courseData);
 
         IEnumerable<Course> GetAllCourses();
+
+        Course GetOneCourse(Course course);
+
+        Course UpdateCourse(Course course, CourseData courseData);
+
+        void DeleteStudent(Course course);
     }
 }

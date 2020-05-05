@@ -17,6 +17,8 @@ namespace WEBWORK.Repositories
         {
             _context = context;
         }
+
+        #region Create New Course
         public IEnumerable<Course> CreateNewCourses(CourseData courseData)
         {
            
@@ -26,10 +28,40 @@ namespace WEBWORK.Repositories
                 return _context.Courses.ToList();
           
         }
+        #endregion
 
+        #region Delete Course
+        public void DeleteStudent(Course course)
+        {
+            _context.Courses.Remove(course);
+            _context.SaveChanges();
+        }
+        #endregion
+
+        #region Get All Courses
         public IEnumerable<Course> GetAllCourses()
         {
             return _context.Courses.ToList();
         }
+
+        #endregion
+
+        #region Get One Course
+        public Course GetOneCourse(Course course)
+        {
+            return course;
+        }
+        #endregion
+
+
+        #region Update Course
+        public Course UpdateCourse(Course course, CourseData courseData)
+        {
+            course.Name = courseData.Name;
+            course.CourseCode = courseData.CourseCode;
+            _context.SaveChanges();
+            return course;
+        }
+        #endregion
     }
 }
