@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WEBWORK.Configurations;
+using WEBWORK.Interfaces;
+using WEBWORK.Repositories;
 
 namespace WEBWORK
 {
@@ -25,14 +27,19 @@ namespace WEBWORK
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                                                         options.SerializerSettings.ReferenceLoopHandling 
+                                                         = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbConnection(Configuration);
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "School Manager API", Description = "School Management System Documentation" });
             });
+            services.AddScoped<IStudent, StudentRepository>();
+            services.AddScoped<ICourse, CourseRepository>();
+            services.AddScoped<IAcademicSet, AcademicSetRepository>();
 
-           
+
 
         }
 

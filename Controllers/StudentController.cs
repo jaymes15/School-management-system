@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WEBWORK.DATA.DataContext;
 using WEBWORK.DATA.Models.DataTarget;
+using WEBWORK.Interfaces;
 
 namespace WEBWORK.Controllers
 {
@@ -15,9 +16,11 @@ namespace WEBWORK.Controllers
 
 
         private ApplicationDbContext _context;
-        public StudentController(ApplicationDbContext context)
+        public IStudent repo { get; }
+        public StudentController(ApplicationDbContext context, IStudent _repo)
         {
             _context = context;
+            repo = _repo;
         }
 
 
@@ -29,7 +32,7 @@ namespace WEBWORK.Controllers
 
         public IActionResult GetAllStudent()
         {
-            return Ok(_context.Students.ToList());
+            return Ok(repo.GetAllStudent());
         }
         #endregion
 
@@ -62,16 +65,15 @@ namespace WEBWORK.Controllers
 
         public IActionResult CreateStudent([FromBody] StudentData studentData)
         {
-            var student = studentData.student;
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                _context.Students.Add(student);
-                _context.SaveChanges();
-                return Ok(student);
+                repo.CreateNewStudent(studentData);
+                return Ok();
             }
             
         }
